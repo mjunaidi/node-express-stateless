@@ -7,6 +7,7 @@ const NOCK_URL = 'http://locahost:8080';
 
 describe('app.controller.js tests', () => {
 
+  /* Test given both request are SUCCESS */
   describe('updateRemoteApi() success', () => {
     beforeEach(() => {
       nock(NOCK_URL).put('/api/resource1').reply(200);
@@ -24,6 +25,7 @@ describe('app.controller.js tests', () => {
     });
   });
 
+  /* Test given first request is FAILED */
   describe('updateRemoteApi() fail on first update', () => {
     beforeEach(() => {
       nock(NOCK_URL).put('/api/resource1').replyWithError(500);
@@ -42,6 +44,7 @@ describe('app.controller.js tests', () => {
     });
   });
 
+  /* Test given first request is SUCCESS, but second request is FAILED */
   describe('updateRemoteApi() fail on second update', () => {
     beforeEach(() => {
       nock(NOCK_URL).put('/api/resource1').reply(200);

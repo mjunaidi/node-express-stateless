@@ -2,7 +2,15 @@ const fetch = require('node-fetch');
 
 const controller = {};
 
-async function update(data, api, retryCount) {
+/**
+  Update a given API with specified data
+
+    data        - data used to be sent over to the API
+    api         - the URL to the API
+    retryCount  - a number of retry before considered the request is FAILED
+
+ */
+async function update(data, api, retryCount=0) {
   try {
     const response = await fetch(api, {
       method: 'PUT',
@@ -20,6 +28,16 @@ async function update(data, api, retryCount) {
   }
 }
 
+/*
+    Update two remote API's with specific request data
+
+      data1   - data for the first request
+      api1    - API url to the first request
+      data2   - data for the second request
+      api2    - API url to the second request
+      onUndo  - a callback function in case the second request is FAILED to undo the first request
+
+*/
 controller.updateRemoteApi = async (data1, api1, data2, api2, onUndo) => {
   try {
     // first update
